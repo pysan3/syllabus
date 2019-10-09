@@ -1,0 +1,7 @@
+responder
+sqlalchemy
+numpy
+pysqlite3
+selenium
+jaconv
+chromedriver_binary
