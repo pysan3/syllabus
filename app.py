@@ -1,10 +1,11 @@
 from database import *
 
-def freerooms_on(day, period):
+def rooms_on(term, day, period):
     with SessionContext() as session:
-        return [r for r in room_names() if eval(f'data.{r}', {}, {
-            'data': session.query(FreeRooms).filter_by(day_period=f'{day}_{period}').one()
-        }) == 0]
+        data = session.query(FreeRooms).filter_by(term=term, day_period=f'{day}_{period}').one_or_none()
+        if data is None:
+            return {r: 0 for r in room_names()}
+        return {r: eval(f'data.{r}', {}, {'data': data}) for r in room_names()}
 
 def fetch_classinfo(class_id):
     if class_id == 0:
@@ -14,20 +15,20 @@ def fetch_classinfo(class_id):
 
 def used_on(room_name):
     with SessionContext() as session:
-        return {t[0]: l[0] for t, l in zip(
-            eval(f'session.query(FreeRooms.day_period)'),
-            eval(f'session.query(FreeRooms.{room_name})')
-        )}
+        return [{t[0]: l[0] for t, l in zip(
+            eval(f'session.query(FreeRooms.day_period).filter_by(term=i)'),
+            eval(f'session.query(FreeRooms.{room_name}).filter_by(term=i)')
+        )} for i in range(4)]
 
-def is_free(room_name, day, period):
-    return room_name in freerooms_on(day, period)
+def is_free(room_name, term, day, period):
+    return rooms_on(term, day, period)[room_name] == 0
 
 def arrange_db():
-    for n in engine.execute('select * from freerooms')._metadata.keys[2:]:
+    for n in engine.execute('select * from freerooms')._metadata.keys[3:]:
         FreeRooms.add_field(n, Integer)
 
 def room_names():
-    return FreeRooms.__table__.columns.keys()[2:]
+    return FreeRooms.__table__.columns.keys()[3:]
 
 if __name__ == "__main__":
     arrange_db()

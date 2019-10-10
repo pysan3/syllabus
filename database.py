@@ -29,6 +29,7 @@ class FreeRooms(Base):
     __tablename__ = 'freerooms'
     id = Column('id', Integer, primary_key=True)
     day_period = Column('day_period', String)
+    term = Column('term', Integer)
 
     @staticmethod
     def add_column(name, data_type):

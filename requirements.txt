@@ -4,4 +4,5 @@ numpy
 pysqlite3
 selenium
 jaconv
+pyvirtualdisplay
 chromedriver_binary
