@@ -9,3 +9,4 @@ templates/
 static/
 *.sh
 *.sqlite3
+print_database.py

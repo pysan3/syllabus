@@ -4,7 +4,16 @@ from sqlalchemy.ext.declarative import declarative_base
 
 __version__ = "0.1.0"
 
-engine = create_engine('sqlite:///database.sqlite3', echo=False)
+DATABASE = 'postgres'
+USER = 'hueskqfcybpggx'
+PASSWORD = '5c7d7524372e83cb57e1d0e264e834cc92c5931cf3ca55ede5736cb462307350'
+HOST = 'ec2-54-227-250-19.compute-1'
+PORT = 'amazonaws.com:5432'
+DB_NAME = 'd30uqulffqfitl'
+
+CONNECT_STR = '{}://{}:{}@{}:{}/{}'.format(DATABASE, USER, PASSWORD, HOST, PORT, DB_NAME)
+
+engine = create_engine(CONNECT_STR, echo=False)
 Base = declarative_base()
 
 Session = sessionmaker(bind=engine)
