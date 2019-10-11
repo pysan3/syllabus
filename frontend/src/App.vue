@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <header><HeaderDefault/></header>
-    <div><router-view/></div>
+    <header class="sticky-top"><HeaderDefault/></header>
+    <div class="desktop"><router-view/></div>
   </div>
 </template>
 
@@ -24,4 +24,6 @@ export default {
   text-align center
 .row
   margin 0px
+.desktop
+  margin-top 16px
 </style>

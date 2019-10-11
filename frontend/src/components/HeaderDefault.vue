@@ -10,7 +10,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right id="user-dropdown">
             <template slot="button-content">User</template>
-            <b-dropdown-item to="/">Profile</b-dropdown-item>
+            <b-dropdown-item to="/">まだ実装してないよ(´;ω;｀)</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
